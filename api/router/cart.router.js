@@ -4,11 +4,12 @@ const {
   getCart,
   updateItem,
 } = require("../controller/cart.controller");
+const validateToken = require("../middleware/validateToken");
 
 const router = Router();
 
-router.post("/add", addToCart);
-router.get("/items/:id", getCart);
-router.post("/update/:id", updateItem);
+router.post("/add", validateToken, addToCart);
+router.get("/items/:id", validateToken, getCart);
+router.post("/update/:id", validateToken, updateItem);
 
 module.exports = router;

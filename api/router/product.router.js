@@ -9,7 +9,7 @@ const validateToken = require("../middleware/validateToken");
 const router = Router();
 
 router.get("/get-products", validateToken, getAllProducts);
-router.get("/list", searchItem);
+router.get("/list", validateToken, searchItem);
 router.post("/add", addProduct);
 
 module.exports = router;
