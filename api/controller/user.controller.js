@@ -46,7 +46,6 @@ module.exports = {
         const userCart = await cartModel
           .findOne({ userId: existingUser._id })
           .exec();
-        console.log(userCart);
 
         if (!userCart) {
           const createCart = await cartModel.create({
