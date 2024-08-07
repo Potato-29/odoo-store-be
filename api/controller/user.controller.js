@@ -1,3 +1,5 @@
+const { userModel } = require("../model/userModel");
+const { cartModel } = require("../model/cartModel");
 const { getUser, createUser } = require("../service/user.service");
 const jwt = require("jsonwebtoken");
 
@@ -33,6 +35,25 @@ module.exports = {
         return next(error);
       }
       if (token) {
+        const updateUser = await userModel.findOneAndUpdate(
+          {
+            _id: existingUser._id,
+          },
+          {
+            token: token,
+          }
+        );
+        const userCart = await cartModel
+          .findOne({ userId: existingUser._id })
+          .exec();
+        console.log(userCart);
+
+        if (!userCart) {
+          const createCart = await cartModel.create({
+            userId: existingUser._id,
+            items: [],
+          });
+        }
         res.json({
           msg: "success",
           data: {

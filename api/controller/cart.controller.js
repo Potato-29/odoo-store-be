@@ -27,8 +27,9 @@ module.exports = {
     }
   },
   getCart: async (req, res) => {
+    const { id } = req.params;
     try {
-      const cartlist = await getCartItems();
+      const cartlist = await getCartItems(id);
       if (cartlist) {
         res.json({
           msg: "success",
@@ -43,9 +44,12 @@ module.exports = {
   },
   updateItem: async (req, res) => {
     const { id } = req.params;
-
     try {
-      const updatedItem = await updateCartItem(id, req.body.type);
+      const updatedItem = await updateCartItem(
+        id,
+        req.body.itemId,
+        req.body.type
+      );
       if (updatedItem) {
         res.json({
           msg: "success",

@@ -9,10 +9,13 @@ const http = require("http");
 var app = express();
 const server = http.createServer(app);
 const cors = require("cors");
+const session = require("express-session");
+const MongoStore = require("connect-mongo");
 
 const productRouter = require("./api/router/product.router");
 const cartRouter = require("./api/router/cart.router");
 const userRouter = require("./api/router/user.router");
+const orderRouter = require("./api/router/order.router");
 
 mongoose
   .connect(process.env.CONNECTION_URI, {
@@ -34,10 +37,7 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use("/api/products", productRouter);
 app.use("/api/cart", cartRouter);
 app.use("/api/user", userRouter);
-
-app.get("/", (req, res) => {
-  res.send("<h1>Hellloooo</h1>");
-});
+app.use("/api/order", orderRouter);
 
 const port = process.env.PORT;
 server.listen(5000, () => {
