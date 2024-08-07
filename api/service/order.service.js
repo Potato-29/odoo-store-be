@@ -5,4 +5,8 @@ module.exports = {
     const order = await orderModel.create(body);
     return order;
   },
+  trackOrder: async () => {
+    const order = await orderModel.find({}).exec();
+    return order;
+  },
 };
